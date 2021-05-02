@@ -7,36 +7,36 @@ _Maven:_
     <dependency>
         <groupId>org.decembrist.spring</groupId>
         <artifactId>spring-interface-bean</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </dependency>
 _Gradle:_  
 
-    implementation "org.decembrist.spring:spring-interface-bean:1.0.0"
+    implementation "org.decembrist.spring:spring-interface-bean:1.1.0"
+_Tested spring-boot version: **2.4.5**_  
 _Example:_  
 
-    @SpringBootApplication
-    //1. Turn on this annotation to enable interface bean scan
-    @EnableInterfaceBeanScan
-    public class Application {...
-
-    //2. Extend class with IBean interface to make it singleton bean
+    //1. Extend class with IBean interface to make it singleton bean
     class SomeClass implements IBean {}
     
     class AnotherClass {
-        //3. SomeClass above will be injected (Singleton scope)
+        //2. SomeClass above will be injected (Singleton scope)
         @Autowired private SomeClass someClass;
     }
     
-    //4. SubInterface works the same way
+    //3. SubInterface works the same way
     interface InterfaceBeanSubInterface extends IBean {
     }
     
     class SomeClass2 implements InterfaceBeanSubInterface {}
     
     class AnotherClass2 {
-        //5. SomeClass2 above will be injected (Singleton scope)
+        //4. SomeClass2 above will be injected (Singleton scope)
         @Autowired private SomeClass2 someClass;
     }
+_To use without springboot autoconfiguration:_
+
+    //import postprocessor
+    @Import(InterfaceBeanPostProcessor.class)
 _Manual interface bean functionality:_  
 If you don't want to use another dependency just copy this bean to your codebase [InterfaceBeanPostProcessor](https://github.com/decembrist-revolt/spring-interface-bean/blob/master/src/main/java/org/decembrist/spring/interfacebean/InterfaceBeanPostProcessor.java)
 
